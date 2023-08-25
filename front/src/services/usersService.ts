@@ -12,22 +12,27 @@ const getSingle = async (id: string) => {
   return response.data;
 }
 
-const login = async (email: string, password: string) => {
-  const response  = await axios.post(`${apiBaseUrl}/users/login`, {email, password});
-  return response;
-}
-
 const create = async (object: NewUser) => {
   const response = await axios.post( `${apiBaseUrl}/users`, object);
   return response;
 };
 
-const update = async (id: string, paramName: string, paramValue: number) => {
-  const response = await axios.put(`${apiBaseUrl}/users/${id}`, { paramName, paramValue });
-  return response.data;
-}; 
+const update = async (object: UserData) => {
+  const response = await axios.put(`${apiBaseUrl}/users/${object.id}`, object)
+  return response.data
+};
+
+const login = async (email: string, password: string) => {
+  const response  = await axios.post(`${apiBaseUrl}/users/login`, {email, password});
+  return response;
+}
+
+const changePassword = async (id: string, oldPassword: string, newPassword: string) => {
+  const response  = await axios.post(`${apiBaseUrl}/users/change-password`, {id, oldPassword, newPassword});
+  return response;
+}
 
 export default {
-  getAll, getSingle, update, create, login
+  getAll, getSingle, update, create, login, changePassword
 };
 

@@ -1,11 +1,11 @@
 import { useState, useRef, useEffect } from "react";
 import { useSelector } from 'react-redux';
 import { Link, useNavigate } from "react-router-dom";
-import {Box, Button, Grid, Typography, TextField } from '@mui/material';
+import {Box, Button, Grid, Typography, TextField, FormControl } from '@mui/material';
 
 import  { createUser} from '../../../reducers/userReducer';
 import { useAppDispatch, RootState, AppDispatch } from "../../../store";
-import { LoginFormErrorsData} from '../../../types';
+import { LoginFormErrorsData } from '../../../types';
 import { setError } from '../../../reducers/userReducer';
 
 
@@ -51,8 +51,9 @@ const SignupForm = (): JSX.Element => {
       }
 
       if(validateForm()){
-        await dispatch(createUser(userEmail, userPassword))
-        navigate("/dashboard");
+        await dispatch(createUser(userEmail.toLowerCase(), userPassword))
+        const userId = localStorage.getItem('userId');
+        userId && navigate("/dashboard");
       }
   }
 
@@ -62,14 +63,20 @@ const SignupForm = (): JSX.Element => {
         <form ref={formRef} onSubmit={handleSubmit}>
           <Grid container spacing={2}>
             <Grid item xs={12}>
-              <TextField label="Email" name="email" color="primary" size="small" />
+              <FormControl fullWidth>
+                <TextField label="Email" name="email" color="primary" size="small" />
+              </FormControl>              
               {signupValidation.email && <Typography component="p" className="text-error">{signupValidation.email}</Typography>}
             </Grid>
             <Grid item xs={12}>
-              <TextField type="password" name="password" label="Password" color="primary" size="small" />
+              <FormControl fullWidth>
+                <TextField type="password" name="password" label="Password" color="primary" size="small" />
+              </FormControl>
             </Grid>
             <Grid item xs={12}>
-              <TextField type="password" name="repeat-password" label="Confirm Password" color="primary" size="small" />
+              <FormControl fullWidth>
+                <TextField type="password" name="repeat-password" label="Confirm Password" color="primary" size="small" />
+              </FormControl>
               {signupValidation.password && <Typography component="p" className="text-error">{signupValidation.password}</Typography>}
             </Grid>
             <Grid container item xs={12}>

@@ -30,12 +30,8 @@ export const initializeExpensesData = (userId:string) => async (dispatch: Dispat
 };
 
 export const updateExpense = (object: Expenses) => async(dispatch: Dispatch) => {
-  try {
-      const expenses = await expensesService.update(object);
-      dispatch(setExpenses(expenses))
-  } catch (error:any) {
-      console.log('Expense was not update')
-  } 
+  const expenses = await expensesService.update(object);
+  dispatch(setExpenses(expenses))
 };
 
 export const createExpense = (data: NewExpenses) => async (dispatch: Dispatch) => {

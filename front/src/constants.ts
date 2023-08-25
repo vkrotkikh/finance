@@ -1,4 +1,5 @@
-export const apiBaseUrl = 'http://localhost:3001/api';
+const domain = window.location.hostname;
+export const apiBaseUrl = `http://${domain}/api`;
 
 
 export const links = {
@@ -7,11 +8,4 @@ export const links = {
     signup: '/signup',
     limits: '/limits',
     statistic: '/statistic'
-}
-
-
-export const concatYearMonth = (date: Date): string => {
-    const year = date.getFullYear();
-    const month = date.getMonth() + 1;
-    return `${year}${month.toString().padStart(2, '0')}`;
 }

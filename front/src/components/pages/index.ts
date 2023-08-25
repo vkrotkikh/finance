@@ -4,3 +4,4 @@ export * from "./dashboard";
 export * from "./limits";
 export * from "./statistic";
 export * from "./shopping";
+export * from "./profile";

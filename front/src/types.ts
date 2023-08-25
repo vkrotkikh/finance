@@ -1,6 +1,12 @@
 export enum ExpenseType {
-  Fixed = 'fixed',
-  Household = 'household'
+  Household = 'household',
+  Fixed = 'fixed'
+}
+
+export enum NotificationTypes {
+  Info = 'info',
+  Error = 'error',
+  Success = 'success'
 }
 
 export interface Cost {
@@ -12,6 +18,16 @@ export interface Cost {
 }
 
 export type NewCost = Omit<Cost, 'id'>;
+
+
+export interface Product {
+  id: string;
+  userId: string;
+  name: string;
+}
+
+export type NewProduct = Omit<Product, 'id'>;
+
 
 export interface Expenses {
   userId: string;
@@ -33,12 +49,14 @@ export interface UserData {
   regDate: string;
   error?: string;
   isLoggedIn?: boolean;
+  telegramNames?: string[];
 }
-
-export type LoggedInUser = Omit<UserData, 'password' >;
 
 export type NewUser = Omit<UserData, 'id' >;
 
+export type chartStatItem = {
+  [key: string]: number | string;
+}
 
 
 export interface LoginFormErrorsData {

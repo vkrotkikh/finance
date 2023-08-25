@@ -1,10 +1,11 @@
 import { useState, useEffect } from "react";
-import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
-import {Login, Signup, Dashboard, Stats, Limits} from './components/pages';
+import { HashRouter as Router, Route, Routes } from "react-router-dom";
+import {Login, Signup, Dashboard, Stats, Limits, Shopping, Profile} from './components/pages';
 import { useAppDispatch, AppDispatch } from "./store";
 import { initializeUserData } from './reducers/userReducer';
 import { initializeExpensesData } from './reducers/expensesReducer';
 import { initializeCostsData } from './reducers/costsReducer';
+import { initializeShoppingData } from './reducers/shoppingReducer';
 
 import PrivateRoute from "./components/global/privateRoute";
 
@@ -19,6 +20,7 @@ function App() {
         await dispatch(initializeUserData(userId));
         await dispatch(initializeExpensesData(userId));
         await dispatch(initializeCostsData(userId))
+        await dispatch(initializeShoppingData(userId))
       }
       setIsStoreReady(true)
     }
@@ -31,6 +33,7 @@ function App() {
 if(!isStoreReady){
   return <></>
 }
+
   return (
     <>
     <Router>
@@ -39,7 +42,9 @@ if(!isStoreReady){
           <Route path="/signup" element={<Signup />} />
           <Route path="/dashboard" element={<PrivateRoute component={Dashboard} />} />
           <Route path="/limits" element={<PrivateRoute component={Limits} />} />
+          <Route path="/shopping" element={<PrivateRoute component={Shopping} />} />
           <Route path="/stats" element={<PrivateRoute component={Stats} />} />
+          <Route path="/profile" element={<PrivateRoute component={Profile} />} />
         </Routes>
     </Router>
     </>

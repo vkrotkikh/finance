@@ -1,5 +1,6 @@
 import { Request, Response, NextFunction, Router } from 'express';
-//import expensesService from '../services/expensesService';
+import { ExpenseData } from '../types';
+
 const { v1: uuid } = require('uuid')
 const Expense = require('./../models/Expense')
 
@@ -9,16 +10,14 @@ const asyncMiddleware = (fn: (req: Request, res: Response, next: NextFunction) =
   (req: Request, res: Response, next: NextFunction) => 
   Promise.resolve(fn(req, res, next)).catch(next);
 
-// FIX TYPES FOR ALL ELEMENTS
-
 router.get('/', (req: Request, res: Response) => {
-    Expense.find({userId: req.query.userId}).then((expenses:any)=>{
+    Expense.find({userId: req.query.userId}).then((expenses:ExpenseData)=>{
         res.send(expenses)
     })
 });
 
 router.get('/:id', (req: Request, res: Response) => {
-    Expense.findOne({id: req.params.id}).then((expense:any)=> {
+    Expense.findOne({id: req.params.id}).then((expense:ExpenseData)=> {
         if (expense) {
           res.send(expense);
         } else {

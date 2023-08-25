@@ -1,11 +1,11 @@
-import { useState, useRef, useEffect } from "react";
+import { useState, useRef } from "react";
 import { useNavigate } from 'react-router-dom';
 import {Link } from "react-router-dom";
 import {Box, Button, Grid, TextField, FormControl, Typography } from '@mui/material';
 import { useSelector } from 'react-redux';
 import { useAppDispatch, RootState, AppDispatch } from "../../../store";
 import { LoginFormErrorsData} from '../../../types';
-import  { loginUser, setError, clearUser, initializeUserData } from '../../../reducers/userReducer';
+import  { loginUser, initializeUserData } from '../../../reducers/userReducer';
 import  {initializeCostsData } from '../../../reducers/costsReducer';
 import { initializeExpensesData } from '../../../reducers/expensesReducer';
 
@@ -50,8 +50,8 @@ const LoginForm = () => {
         await dispatch(initializeUserData(userId));
         await dispatch(initializeExpensesData(userId));
         await dispatch(initializeCostsData(userId))
+        navigate("/dashboard");
       }
-      navigate("/dashboard");
     }
   }
 
@@ -62,11 +62,15 @@ const LoginForm = () => {
         <form onSubmit={handleLoginForm}  ref={formRef}>
           <Grid container spacing={2}>
             <Grid item xs={12}>
+              <FormControl fullWidth>
               <TextField name="email" label="Email" color="primary" size="small" />
+              </FormControl>
               {signupValidation.email && <Typography component="p" className="text-error">{signupValidation.email}</Typography>}              
             </Grid>
             <Grid item xs={12}>
-              <TextField name="password" label="Password" color="primary" size="small"  />
+              <FormControl fullWidth>
+              <TextField type="password" name="password" label="Password" color="primary" size="small"  />
+              </FormControl>
               {signupValidation.password && <Typography component="p" className="text-error">{signupValidation.password}</Typography>}              
             </Grid>
             <Grid item xs={12}>

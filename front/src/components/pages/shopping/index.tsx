@@ -1,11 +1,18 @@
 import Header from '../../layout/header'
-import { Typography } from '@mui/material';
+import { Container, Typography } from '@mui/material';
+
+import ProductForm from "./productForm";
+import ProductsList from "./productList";
 
 export const Shopping = () => {
-    return (
-      <>
-        <Header />
-        <Typography variant="h4" align='center'> Statistics</Typography>
-      </>
-    )
-  };
+  return (
+    <>
+      <Header />
+      <Container maxWidth="sm">
+        <Typography variant="h4" align='center'> Shopping</Typography>
+        <ProductForm />
+        <ProductsList />
+      </Container>
+    </>
+  )
+};

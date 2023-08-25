@@ -1,5 +1,4 @@
 const mongoose = require('mongoose')
-
 const uniqueValidator = require('mongoose-unique-validator')
 
 const schema = new mongoose.Schema({
@@ -31,6 +30,12 @@ const schema = new mongoose.Schema({
     },
     regDate: {
         type: String,
+        required: false,
+        unique: false
+
+    },
+    telegramNames: {
+        type: [String],
         required: false,
         unique: false
 

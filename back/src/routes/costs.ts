@@ -1,6 +1,7 @@
 import { Request, Response, NextFunction, Router } from 'express';
 const { v1: uuid } = require('uuid')
 const Cost = require('./../models/Cost')
+import { CostData } from '../types';
 
 const router = Router();
 
@@ -9,13 +10,13 @@ const asyncMiddleware = (fn: (req: Request, res: Response, next: NextFunction) =
 
 
 router.get('/', (req: Request, res: Response) => {
-    Cost.find({userId: req.query.userId}).then((costs:any)=> {
+    Cost.find({userId: req.query.userId}).then((costs:CostData[])=> {
       res.send(costs)
     })
 });
 
 router.get('/:id', (req: Request, res: Response) => {
-  Cost.findOne({id: req.params.id}).then((cost:any)=> {
+  Cost.findOne({id: req.params.id}).then((cost:CostData)=> {
       if (cost) {
         res.send(cost);
       } else {

@@ -5,6 +5,15 @@ body {
     font-family: Verdana, Geneva, Tahoma, sans-serif;
 } 
 
+b {
+    font-weight: bold;
+}
+
+.subtitle {
+    margin-bottom:25px;
+    line-height: 1.4;
+}
+
 .login-form {
     position: absolute;
     top:20%;
@@ -33,40 +42,58 @@ body {
 .main-header {
     padding:10px 20px;
 
-    svg {
+    .menu-icon {
         width:36px;
         height:36px;
-        background:#fff;
-        border-radius: 50%;
-        padding:4px;
     }
 }
 
 .box-flat {
     border-radius: 10px;
     padding: 20px;
-    margin:20px 0;
+    margin-bottom:20px;
     background: #fff;
 }
 
 .sidebar {
-    position: absolute;
-    z-index: 2;
+    position: fixed;
+    z-index: 3;
     top:0;
     bottom:0;
     left:0;
     width:60%;
     padding:50px 0;
     background-color: #fff;
+    box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.2);
 
     a {
       display: block;
+      color:#666;
       padding:15px 20px;
       text-transform: uppercase;
       text-decoration: none;
       width:100%;
       height:100%;
+      
+      svg {
+        vertical-align: middle;
+        margin-right: 8px;
+      }
+
+      span {
+        vertical-align: middle;
+      }
     }
+}
+
+.sidebar-overlay {
+    z-index: 2;
+    position: fixed;
+    top:0;
+    bottom:0;
+    left:0;
+    right:0;
+    background-color: rgba(255,255,255, 0.6);
 }
 
 svg {
@@ -76,11 +103,11 @@ svg {
 
 .modal {
     position:absolute;
-    top: 50%;
+    top: 20%;
     left:0;
     right:0;
     margin:auto;
-    width: 450px;
+    width: 320px;
     background-color: #fff;
 
     .modal-header {
@@ -135,15 +162,18 @@ svg {
 }
 
 .expenses-list-head {
-    & > div {
-        padding-left:14px;
+    margin-bottom: 8px;;
+    .expenses-list-item {
+        font-weight: bold;
+        line-height:32px;
     }
 }
 
 .expenses-list-body {
     .expenses-list-row {
         .expenses-list-item {
-            padding:2px 4px;
+            padding:5px 0;
+            line-height: 32px;
         }
 
         &.disabled {
@@ -157,23 +187,119 @@ svg {
     }
 }
 
+.expenses-list-row {
+   
+    .expenses-form {
+        display: none;
+        margin:8px 0;
+    }
 
+    &.show-form {
+        
+        .expenses-data {
+            display: none;
+        }
+
+        .expenses-form {
+            display: block;
+        }
+
+    }
+}
 
 .table {
     margin:15px 0;
     .table-head {
+        border-bottom: 1px solid #ccc;
+        padding-bottom: 4px;
+
         .table-col {
             font-weight: bold;
+
+            .table-col-sort-link {
+                display: flex;
+                align-items: center;
+                text-decoration: none;
+                line-height: 18px;
+
+                svg {
+                    height:18px;
+                }
+            }
         }
-    }
-
-    .table-body {
-
     }
 
     .table-row {
         .table-col {
             padding:4px;
         }
+    }
+
+    .table-body {
+        .table-row {
+            .table-col {
+                white-space: nowrap;
+                overflow: hidden;
+                text-overflow: ellipsis;
+                padding:6px 0;
+                display: flex;
+                vertical-align: center;
+            }
+
+            .actions {
+                justify-content: end;
+
+                svg {
+                    height:21px;
+                }
+            }
+
+            &:nth-child(odd){
+                background-color: #fefefe;
+            }
+        }
+
+    }
+}
+
+
+.chartWrapper {
+    max-width: 100%;
+    overflow-x: auto;
+    overflow-y: hidden;
+}
+
+
+.progress-bar {
+    margin:6px 0;
+}
+
+
+.notification {
+    width:300px;
+    max-width:90%;
+    margin:auto;
+    position: fixed;
+    z-index:1400;
+    top:20px;
+    left:0;
+    right:0;
+
+    p {
+        padding:16px;
+        margin-bottom:8px;
+        
+        &.success {
+            background: rgb(193, 255, 198);
+        }
+
+        &.error {
+            background: rgb(255, 193, 193);
+        }
+
+        &.info {
+            background: rgb(193, 197, 255);
+        }
+
     }
 }

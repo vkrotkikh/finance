@@ -9,7 +9,7 @@ export enum ExpenseType {
   Household = 'household'
 }
 
-export interface Cost {
+export interface CostData {
   id: string;
   userId: string;
   expenseId: string;
@@ -17,9 +17,9 @@ export interface Cost {
   date: string;
 }
 
-export type NewCost = Omit<Cost, 'id'>;
+export type NewCost = Omit<CostData, 'id'>;
 
-export interface Expense {
+export interface ExpenseData {
   userId: string;
   id: string;
   name: string;
@@ -29,7 +29,7 @@ export interface Expense {
   date?: string;
 }
 
-export type NewExpense = Omit<Expense, 'id' | 'spent'>;
+export type NewExpense = Omit<ExpenseData, 'id' | 'spent'>;
 
 
 export interface UserData {
@@ -39,6 +39,12 @@ export interface UserData {
   name:string;
   mylimit:number;
   regDate: string;
+  telegramNames?: string[];
+}
+
+export interface telegramData {
+  name: string,
+  userId: string
 }
 
 export type NewUser = Omit<UserData, 'id'>;

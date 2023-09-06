@@ -25,10 +25,7 @@ function App() {
       setIsStoreReady(true)
     }
     fetchData()
-  }, [dispatch]);
-
-// find out if it is possible to use react routers await for store ready
-// https://reactrouter.com/en/main/components/await
+  }, []);
 
 if(!isStoreReady){
   return <></>
@@ -43,7 +40,7 @@ if(!isStoreReady){
           <Route path="/dashboard" element={<PrivateRoute component={Dashboard} />} />
           <Route path="/limits" element={<PrivateRoute component={Limits} />} />
           <Route path="/shopping" element={<PrivateRoute component={Shopping} />} />
-          <Route path="/stats" element={<PrivateRoute component={Stats} />} />
+          <Route path="/statistic" element={<PrivateRoute component={Stats} />} />
           <Route path="/profile" element={<PrivateRoute component={Profile} />} />
         </Routes>
     </Router>

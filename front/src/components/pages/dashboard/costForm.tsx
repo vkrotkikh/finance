@@ -12,8 +12,6 @@ import  { createCost } from '../../../reducers/costsReducer';
 import notification from '../../global/notification';
 
 
-
-
 const CostForm = (): JSX.Element => {
     const dispatch: AppDispatch = useAppDispatch(); 
     const expensesData = useSelector((state: RootState) => state.expenses);

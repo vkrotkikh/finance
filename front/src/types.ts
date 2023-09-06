@@ -9,6 +9,14 @@ export enum NotificationTypes {
   Success = 'success'
 }
 
+export enum PageLinks {
+  home = '/', 
+  signup = '/signup',
+  limits = '/limits',
+  statistic = '/statistic',
+  profile = '/profile'
+}
+
 export interface Cost {
   id: string;
   userId: string;

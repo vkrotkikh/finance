@@ -3,10 +3,7 @@ import MenuIcon from '@mui/icons-material/Menu';
 import CloseIcon from '@mui/icons-material/Close';
 import {Box, Grid, Container, Fab } from '@mui/material';
 import { Link } from "react-router-dom";
-import { useAppDispatch, AppDispatch } from "./../../store";
-import  {clearUser} from './../../reducers/userReducer';
-import { clearExpenses } from './../../reducers/expensesReducer';
-import { clearCosts } from './../../reducers/costsReducer';
+import { linksLoggedIntUser } from "../../constants";
 
 import DashboardIcon from '@mui/icons-material/Dashboard';
 import CreditCardIcon from '@mui/icons-material/CreditCard';
@@ -15,19 +12,21 @@ import PersonIcon from '@mui/icons-material/Person';
 import LegendToggleIcon from '@mui/icons-material/LegendToggle';
 import LogoutIcon from '@mui/icons-material/Logout';
 
+const iconComponents:any = {
+  DashboardIcon,
+  CreditCardIcon,
+  ShoppingCartIcon,
+  PersonIcon,
+  LegendToggleIcon,
+  LogoutIcon
+}
+
+
 const Header = (): JSX.Element   => {
   const [sideBarVisible, setSideBarVisible] = useState(false);
-  const dispatch: AppDispatch = useAppDispatch(); 
   
   const handleShowMenu = () => {
     setSideBarVisible(!sideBarVisible)
-  }
-
-  const handleLogout = () => {
-    localStorage.setItem('userId', '')
-    dispatch(clearUser());
-    dispatch(clearExpenses());
-    dispatch(clearCosts())
   }
 
   const SideBarMenu = () => {
@@ -37,44 +36,17 @@ const Header = (): JSX.Element   => {
         <Box className="sidebar-overlay"  onClick={handleShowMenu}></Box>
         <Box className="sidebar">
           <Grid container>
-            <Grid item xs={12}>
-            <Link to="/dashboard">
-              <DashboardIcon />
-              <Box component="span">Dashboard</Box>
-              </Link>
-            </Grid>
-            <Grid item xs={12}>
-              <Link to="/limits">
-                <CreditCardIcon />
-                <Box component="span">Limits</Box>
-                
-              </Link>
-            </Grid>
-            <Grid item xs={12}>
-              <Link to="/stats">
-                <LegendToggleIcon />
-                <Box component="span">Statistic</Box>
-                
-              </Link>
-            </Grid>
-            <Grid item xs={12}>
-              <Link to="/shopping">
-                <ShoppingCartIcon />
-                <Box component="span">Shopping List</Box>
-              </Link>
-            </Grid>
-            <Grid item xs={12}>
-              <Link to="/profile">
-                <PersonIcon />
-                <Box component="span">Profile</Box>
-              </Link>
-            </Grid>
-            <Grid item xs={12}>
-              <Link to="/" onClick={handleLogout}>
-                <LogoutIcon />
-                <Box component="span">Logout</Box>
-              </Link>
-            </Grid>
+            {linksLoggedIntUser.map((item) => {
+              const SvgIcon = iconComponents[item.icon]
+                return (
+                <Grid key={item.link} item xs={12}>
+                <Link to={item.link}>
+                  <SvgIcon />
+                  <Box component="span">{item.name}</Box>
+                  </Link>
+                </Grid> 
+                )   
+              })}
           </Grid>
         </Box>
       </>

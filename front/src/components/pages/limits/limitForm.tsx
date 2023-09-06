@@ -12,15 +12,12 @@ const LimitForm = () => {
     const userData = useSelector((state: RootState) => state.user);
     const [myLimit, setMyLimit] = useState<number>(userData.mylimit);
 
-    const handleLimitChange = (event: React.ChangeEvent<HTMLInputElement>): void => {
-        const limit = Number(event.currentTarget.value);
-        setMyLimit(limit)
-    } 
-
     const handleUpdateLimit = (event: React.FormEvent<HTMLFormElement>): void => {
         event.preventDefault();
-        dispatch(updateUser({...userData, mylimit: myLimit}))
-        notification({text: 'Your total limit is saved.', type: NotificationTypes.Success});
+        if(userData.mylimit != myLimit) {
+            dispatch(updateUser({...userData, mylimit: myLimit}))
+            notification({text: 'Your total limit is saved.', type: NotificationTypes.Success});
+        }
     };
 
     return (
@@ -31,7 +28,7 @@ const LimitForm = () => {
                     <TextField
                         label="Total Limit"
                         value={myLimit} 
-                        onChange={handleLimitChange} 
+                        onChange={({target})=>{setMyLimit(Number(target.value))}} 
                         fullWidth
                         InputProps={{
                         endAdornment: (

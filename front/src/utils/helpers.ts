@@ -1,11 +1,3 @@
-export const concatYearMonth = (date: Date): string => {
-    const year = date.getFullYear();
-    const month = date.getMonth() + 1;
-    return `${year}${month.toString().padStart(2, '0')}`;
-}
-
-
-  
 export const mergeObjects = (obj1: any, obj2: any) => {
     const result:any = { ...obj1 };
     for (const key of Object.keys(obj2)) {

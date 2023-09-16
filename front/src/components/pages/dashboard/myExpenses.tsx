@@ -1,8 +1,7 @@
 import { useState, useEffect } from "react";
 import { styled } from '@mui/material/styles';
 import { Button, Grid, Typography, Box } from '@mui/material';
-
-import { concatYearMonth } from '../../../utils/helpers';
+import dayjs from 'dayjs';
 
 import LinearProgress, { linearProgressClasses } from '@mui/material/LinearProgress';
 import { Expenses } from '../../../types';
@@ -35,10 +34,11 @@ const MyExpenses = (): JSX.Element => {
     const [isNextDisabled, setisNextDisabled] = useState(true);
 
     useEffect(()=>{
-        if(concatYearMonth(userRegistrationDate) < concatYearMonth(shownDate)){
+        if(dayjs(shownDate).diff(dayjs(userRegistrationDate), 'month', true) >= 1){
             setisPrevDisabled(false)
         }
     },[])
+
 
     const currentMonthCosts = costsData.filter((c) => {
         const costMonth = new Date(c.date).getMonth()
@@ -59,16 +59,11 @@ const MyExpenses = (): JSX.Element => {
     const choosenMonth = shownDate.toLocaleString('en-EN', { month: 'long' });
     const totalCosts = currentMonthCosts.reduce((a, c) => {return a + c.ammount}, 0) + Number(fixedExpensesAmount);
 
-    const handleDate = (type:string) => {
-        let newDate;
-        if(type === 'next'){
-            newDate = new Date(shownDate.setMonth(shownDate.getMonth() + 1));
-        } else {
-            newDate = new Date(shownDate.setMonth(shownDate.getMonth() - 1));
-        }
+    const handleDate = (direction:number) => {
+        const newDate = new Date(shownDate.setMonth(shownDate.getMonth() + direction ));
 
-        concatYearMonth(shownDate) < concatYearMonth(date) ? setisNextDisabled(false) : setisNextDisabled(true)
-        concatYearMonth(userRegistrationDate) < concatYearMonth(shownDate) ? setisPrevDisabled(false) : setisPrevDisabled(true)
+        Math.round(dayjs(date).diff(dayjs(shownDate), 'month', true)) > 0 ? setisNextDisabled(false) : setisNextDisabled(true)
+        Math.round(dayjs(userRegistrationDate).diff(dayjs(shownDate), 'month', true)) < 0 ? setisPrevDisabled(false) : setisPrevDisabled(true)
         setShownDate(newDate)
     }
 
@@ -108,11 +103,11 @@ const MyExpenses = (): JSX.Element => {
             <Grid container spacing={2}>
                 <Grid container item xs={12}>
                     <Grid item xs={3}>
-                        <Button onClick={()=>{handleDate('prev')}} disabled={isPrevDisabled}>prev</Button>
+                        <Button onClick={()=>{handleDate(-1)}} disabled={isPrevDisabled}>prev</Button>
                     </Grid>
                     <Grid item xs={6}><Typography variant="h6" align='center'> {choosenMonth}</Typography></Grid>
                     <Grid item xs={3} textAlign={'right'}>
-                        <Button onClick={()=>{handleDate('next')}}  disabled={isNextDisabled}>next</Button>
+                        <Button onClick={()=>{handleDate(1)}}  disabled={isNextDisabled}>next</Button>
                     </Grid>
                 </Grid>
                 <Grid container item alignItems={'center'} justifyContent={'space-between'}>
